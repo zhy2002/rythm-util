@@ -11,8 +11,6 @@ import java.util.Map;
  */
 public class RythmContext {
 
-    private static final String SELF_KEY = "$";
-
     private final HashMap<Comparable, RythmContext> valueCache;
     private final Object value;
 

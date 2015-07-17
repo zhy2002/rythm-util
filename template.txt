@@ -1,3 +1,0 @@
-Template tesst line1
-this is test line 2 999<<<<<
-hello world test xxx
