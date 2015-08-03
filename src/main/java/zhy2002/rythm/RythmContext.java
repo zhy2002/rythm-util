@@ -25,6 +25,40 @@ public class RythmContext {
         valueCache = value == null ? null : new HashMap<Comparable, RythmContext>();
     }
 
+
+    /**
+     * Returns If this context contains a list or an array return the length otherwise return -1.
+     * @return -1 if not list or array.
+     */
+    public int length(){
+
+        if(value != null){
+            if(value instanceof List)
+                return ((List)value).size();
+
+            if(value.getClass().isArray())
+                return Array.getLength(value);
+        }
+
+        return -1;
+    }
+
+    /**
+     * Get the indices for looping in rythm template.
+     * @return
+     */
+    public Integer[] getIndices(){
+       int length = length();
+        if(length < 0)
+            length = 0;
+
+        Integer[] indices = new Integer[length];
+        for (int i=0; i<length; i++){
+            indices[i] = i;
+        }
+        return indices;
+    }
+
     /**
      * If the underlying object is a a list or array then return the element at index. Otherwise return null.
      *

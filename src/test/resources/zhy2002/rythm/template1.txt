@@ -1,0 +1,8 @@
+@args zhy2002.rythm.RythmContext context
+
+Hi My name is @context.get("name").
+I have @context.get("skills").length() skills:
+@for(Integer key : @context.get("skills").getIndices()) {
+    @context.get("skills").get(key)
+
+}
