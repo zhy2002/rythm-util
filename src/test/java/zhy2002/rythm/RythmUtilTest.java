@@ -1,7 +1,16 @@
 package zhy2002.rythm;
 
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +67,29 @@ public class RythmUtilTest {
 
         String result = RythmUtil.mergeWithTemplateFile(path, jsonString);
 
-        assertThat(result, equalTo(""));
+        assertThat(result, equalTo("Hi My name is tester.\nI have 2 skills:\n report bug\n write documentation\n"));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void shouldThrowExceptionIfTemplateFileNotFound() throws IOException{
+
+        RythmUtil.mergeIntoTemplateFile("invalid file path", "");
+    }
+
+    @Test
+    public void mergeIntoTemplateFileTest() throws IOException, URISyntaxException{
+        File tempFile = File.createTempFile("template", "2");
+        Path sourcePath = Paths.get(getClass().getResource("template2.txt").toURI());
+        Files.copy(sourcePath, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        String jsonString = "{\"content\":\"Windows 10 is the best OS ever.\", \"from\":{\"name\":\"Steve\",\"email\":\"steveb@microsoft.com\"}}";
+
+        RythmUtil.mergeIntoTemplateFile(tempFile.getPath(), jsonString);
+        String result = new String(Files.readAllBytes(Paths.get(tempFile.toURI())));
+
+        assertThat(result, equalTo("=============BEGIN============\n" +
+                "Message content:\n" +
+                "Windows 10 is the best OS ever.\n" +
+                " From: Steve | <steveb@microsoft.com>\n" +
+                "==============END=============="));
     }
 }

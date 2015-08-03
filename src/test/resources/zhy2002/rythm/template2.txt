@@ -1,0 +1,11 @@
+@args zhy2002.rythm.RythmContext context
+
+=============BEGIN============
+Message content:
+@context.get("content")
+
+@if(context.get("from")){
+    From: @context.get("from").get("name") | <@context.get("from").get("email")>
+}
+
+==============END==============

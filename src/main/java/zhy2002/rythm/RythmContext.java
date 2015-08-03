@@ -44,22 +44,6 @@ public class RythmContext {
     }
 
     /**
-     * Get the indices for looping in rythm template.
-     * @return
-     */
-    public Integer[] getIndices(){
-       int length = length();
-        if(length < 0)
-            length = 0;
-
-        Integer[] indices = new Integer[length];
-        for (int i=0; i<length; i++){
-            indices[i] = i;
-        }
-        return indices;
-    }
-
-    /**
      * If the underlying object is a a list or array then return the element at index. Otherwise return null.
      *
      * @param index the index of the element to get.
